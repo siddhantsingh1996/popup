@@ -34,14 +34,14 @@ const Background = styled.div`
 
 const ModalWrapper = styled.div`
       width:650px;
-      height: 441px;
+      height: 480px;
       box-shadow:0 5px 16px rgba(0,0,0,0.2);
       background:#fff;
       color:#000;
-      position:relative;
-      z-index:10;
+      /*position:relative;*
+      /*z-index:10;*/
       border-radius:10px; 
-      margin-top: 126px;
+      margin-top:40px;
      
 `
 
@@ -94,18 +94,19 @@ export default function EditorpopUp({ showModal, setShowModal, setMathValue,setT
        const handleClose = () => {
             const math = String.raw`${data}`
             setText(data);
-            setMathValue(<MathJax math={math} />)
-            setShowModal(prev => !prev)
+           // setMathValue(<MathJax math={math} />)
+            setMathValue(math);
+          //  setShowModal(prev => !prev)
        }
   return (
     <>
    
-   {showModal ? (
-            <Background>
+   {/* {showModal ? ( */}
+            {/* <Background> */}
            
                 <ModalWrapper showModal={showModal}>
                    <ModalContent>
-                     <h3>Show message</h3>
+                     <h3>Mathml Conversion</h3>
                    <CKEditor
                     editor={ ClassicEditor }
                    
@@ -133,15 +134,9 @@ export default function EditorpopUp({ showModal, setShowModal, setMathValue,setT
                     data={text}
                     onReady={ editor => {
                       data = editor.getData();
-                        // You can store the "editor" and use when it is needed.
-                       // console.log( 'Editor is ready to use!', editor );
+                       
                     } }
                     onChange={ ( event, editor ) => {
-                        //const data = editor.getData();
-                      //  const math = String.raw`${data}`
-                       // setText(data);
-                       // setMathValue(<MathJax math={math} />)
-                       // console.log( "hello world",{ event, editor, data } );
                        data = editor.getData();
                        console.log("data",data);
                     } }
@@ -152,12 +147,13 @@ export default function EditorpopUp({ showModal, setShowModal, setMathValue,setT
                        // console.log( 'Focus.', editor );
                     } }
                 />
+                 <div onClick={handleClose} style={{height:'40px',width:'200px',backgroundColor:'orange',display:'flex',alignItems:'center',justifyContent:'center',borderRadius:'8px',color:'#ffffff',marginTop:'1%'}}>Convert to Mathml</div>
                    </ModalContent>
-                    <CloseModalButton aria-label='Close modal' onClick={handleClose}/> 
+                    {/* <CloseModalButton aria-label='Close modal' onClick={handleClose}/>  */}
                 </ModalWrapper>
-               
-            </Background>
-        ) :null}       
+              
+            {/* </Background> */}
+        {/* ) :null}        */}
               
          
                
@@ -165,3 +161,11 @@ export default function EditorpopUp({ showModal, setShowModal, setMathValue,setT
     </>
   );
 }
+
+
+/**
+ * 
+ * 
+ * 
+ * "<p><math xmlns="http://www.w3.org/1998/Math/MathML"><msubsup><mo>∫</mo><mi>b</mi><mi>a</mi></msubsup><mi>x</mi><mo>d</mo><mi>x</mi><mo>+</mo><msubsup><mo>∫</mo><mi>a</mi><mi>b</mi></msubsup><mi>y</mi><mo>.</mo><mi>d</mi><mi>y</mi></math></p><p>&nbsp;</p><p><math xmlns="http://www.w3.org/1998/Math/MathML"><msubsup><mo>∫</mo><mi>b</mi><mi>a</mi></msubsup><mi>x</mi><mo>.</mo><mi>d</mi><mi>x</mi><mo>+</mo><msubsup><mo>∫</mo><mi>a</mi><mi>b</mi></msubsup><mi>y</mi><mo>.</mo><mi>d</mi><mi>y</mi></math></p>"
+ */
